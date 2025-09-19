@@ -41,7 +41,7 @@ next-env.d.ts
 .vscode/
 .idea/
 
-# Certificados EfiPay sensíveis
+# # Certificados EfiPay sensíveis
 certificado_homologacao.pem
 certificado.pem
 certificates/efipay-homolog.crt
@@ -49,6 +49,21 @@ certificates/efipay-prod.crt
 certificates/homologacao-full.pem
 certificates/producao-745954-Certificado.pem
 certificates/producao-cert-only.pem
+certificates/*.p12
+
+# Arquivos de ambiente sensíveis
+.env
+.env.*
+
+# Scripts de teste
+scripts/test-*.js
+test-*.js
+
+# Configurações do editor
+.cursor/
+
+# Node modules em subpastas
+**/node_modules/
 
 # Dados de teste/temporários
 temp_*
