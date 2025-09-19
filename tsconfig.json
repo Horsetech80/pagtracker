@@ -25,33 +25,6 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@/shared/*": [
-        "./src/shared/*"
-      ],
-      "@/types": [
-        "./src/shared/types"
-      ],
-      "@/types/*": [
-        "./src/shared/types/*"
-      ],
-      "@/ui": [
-        "./src/shared/ui"
-      ],
-      "@/ui/*": [
-        "./src/shared/ui/*"
-      ],
-      "@/utils": [
-        "./src/shared/utils"
-      ],
-      "@/utils/*": [
-        "./src/shared/utils/*"
-      ],
-      "@/config": [
-        "./src/shared/config"
-      ],
-      "@/config/*": [
-        "./src/shared/config/*"
       ]
     }
   },
