@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "pagtracker-homolog",
+  "_comment": "Updated build config to use next.config.vercel.js - v1.1",
   "alias": ["pagtracker-homolog.vercel.app"],
   "regions": ["gru1"],
   "framework": "nextjs",

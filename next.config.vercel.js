@@ -118,6 +118,12 @@ const nextConfig = {
       };
     }
 
+    // Garantir que o path mapping funcione corretamente no Vercel
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+
     return config;
   },
 };
