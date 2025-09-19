@@ -1,0 +1,19 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Instalar dependências
+COPY package*.json ./
+RUN npm install
+
+# Copiar código fonte
+COPY . .
+
+# Compilar TypeScript
+RUN npm run worker:build
+
+# Expor portas (se necessário)
+# EXPOSE 8080
+
+# Comando padrão (pode ser sobrescrito pelo docker-compose)
+CMD ["npm", "run", "worker:start"] 

@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "outDir": "./.next-admin/types",
+    "incremental": true,
+    "tsBuildInfoFile": "./.next-admin/tsconfig.tsbuildinfo"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next-admin/types/**/*.ts",
+    "src/app/admin/**/*",
+    "src/components/admin/**/*",
+    "src/middleware/admin/**/*",
+    "src/hooks/useAdmin.ts",
+    "src/types/admin.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "src/app/(dashboard)/**/*",
+    "src/app/client/**/*",
+    "src/components/dashboard/**/*",
+    "src/components/checkout/**/*"
+  ]
+}

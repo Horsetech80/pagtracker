@@ -1,0 +1,232 @@
+# ============================================
+# PAGTRACKER V4.0 - DOCKER COMPOSE PRODUÇÃO
+# ============================================
+# Stack completa: App + Redis + Nginx + Monitoramento
+
+services:
+  # ==========================================
+  # REDIS - Cache & Session Store
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: pagtracker-redis
+    restart: unless-stopped
+    
+    command: >
+      redis-server 
+      --maxmemory 512mb 
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10  
+      --save 60 10000
+      --appendonly yes
+      --appendfsync everysec
+      --requirepass ${REDIS_PASSWORD:-PagTracker_Redis_2025!}
+    
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/etc/redis/redis.conf:ro
+    
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-PagTracker_Redis_2025!}
+    
+    networks:
+      - pagtracker-network
+    
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "${REDIS_PASSWORD:-PagTracker_Redis_2025!}", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==========================================
+  # PAGTRACKER APP - Main Application
+  # ==========================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    
+    container_name: pagtracker-app
+    restart: unless-stopped
+    
+    ports:
+      - "${APP_PORT:-3000}:3000"
+      - "${WEBHOOK_PORT:-3001}:3001"
+    
+    volumes:
+      - ./certificates:/app/certificates:ro
+      - ./logs:/app/logs
+      - app_uploads:/app/uploads
+    
+    environment:
+      # App
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+      
+      # Supabase
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      
+      # Redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-PagTracker_Redis_2025!}
+      
+      # EfiPay
+      - EFIPAY_CLIENT_ID=${EFIPAY_CLIENT_ID}
+      - EFIPAY_CLIENT_SECRET=${EFIPAY_CLIENT_SECRET}
+      - EFIPAY_SANDBOX=${EFIPAY_SANDBOX:-true}
+      - EFIPAY_ENVIRONMENT=${EFIPAY_ENVIRONMENT:-production}
+      - EFIPAY_PIX_KEY=${EFIPAY_PIX_KEY}
+      - EFIPAY_CERTIFICATE_PATH=/app/certificates/producao-745954-Certificado.p12
+      - EFIPAY_BASE_URL=${EFIPAY_BASE_URL:-https://pix.api.efipay.com.br}
+      
+      # Multi-tenancy
+      - TENANT_CONTEXT_ENABLED=true
+      - DEFAULT_TENANT_ID=${DEFAULT_TENANT_ID:-production}
+      
+      # Security
+      - JWT_SECRET=${JWT_SECRET:-PagTracker_JWT_Secret_2025_Production!}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-PagTracker_32_Char_Key_2025_Prod!}
+      
+      # URLs
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3000/api}
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:3001}
+      
+      # Monitoring
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - ENABLE_METRICS=${ENABLE_METRICS:-true}
+    
+    depends_on:
+      redis:
+        condition: service_healthy
+    
+    networks:
+      - pagtracker-network
+    
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ==========================================
+  # NGINX - Reverse Proxy & Load Balancer
+  # ==========================================
+  nginx:
+    image: nginx:alpine
+    container_name: pagtracker-nginx
+    restart: unless-stopped
+    
+    ports:
+      - "${NGINX_PORT:-80}:80"
+      - "${NGINX_SSL_PORT:-443}:443"
+    
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./certificates:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    
+    depends_on:
+      - app
+    
+    networks:
+      - pagtracker-network
+    
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.2'
+    
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ==========================================
+  # REDIS COMMANDER - Redis Web Interface (DEV)
+  # ==========================================
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: pagtracker-redis-commander
+    restart: unless-stopped
+    
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:${REDIS_PASSWORD:-PagTracker_Redis_2025!}
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=pagtracker123
+    
+    ports:
+      - "8081:8081"
+    
+    depends_on:
+      - redis
+    
+    networks:
+      - pagtracker-network
+    
+    profiles:
+      - development
+      - monitoring
+
+# ==========================================
+# VOLUMES PERSISTENTES
+# ==========================================
+volumes:
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/redis
+  
+  app_uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/uploads
+  
+  nginx_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs/nginx
+
+# ==========================================
+# NETWORK
+# ==========================================
+networks:
+  pagtracker-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

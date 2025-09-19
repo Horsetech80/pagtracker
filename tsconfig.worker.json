@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "dist",
+    "target": "ES2018",
+    "isolatedModules": false,
+    "noEmit": false
+  },
+  "include": ["src/workers/**/*.ts", "src/lib/**/*.ts"],
+  "exclude": ["node_modules"]
+} 

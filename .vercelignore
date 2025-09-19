@@ -1,0 +1,71 @@
+# Arquivos de desenvolvimento
+.env.local
+.env.development
+.env.test
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Diretórios de desenvolvimento
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de teste
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Arquivos temporários
+tmp/
+temp/
+*.tmp
+
+# Documentação de desenvolvimento
+docs/
+README.md
+CHANGELOG.md
+LICENSE
+
+# Scripts de desenvolvimento
+scripts/dev/
+scripts/test/
+start-*.ps1
+start-*.sh
+
+# Certificados locais (usar variáveis de ambiente no Vercel)
+certificates/
+*.pem
+*.p12
+*.pfx
+
+# Backups e logs
+backups/
+logs/
+*.backup
+
+# Arquivos de configuração local
+.env.example
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Arquivos de monitoramento local
+monitoring/
+grafana/
+prometheus/

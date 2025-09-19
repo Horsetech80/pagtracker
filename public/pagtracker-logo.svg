@@ -1,0 +1,13 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background rounded square -->
+  <rect width="120" height="120" rx="24" fill="#1a1a1a"/>
+  
+  <!-- Main P letter in golden yellow -->
+  <path d="M25 25 L25 95 L35 95 L35 65 L60 65 C75 65 85 55 85 45 C85 35 75 25 60 25 L25 25 Z M35 35 L60 35 C70 35 75 40 75 45 C75 50 70 55 60 55 L35 55 L35 35 Z" fill="#fbbf24"/>
+  
+  <!-- Arrow curve element -->
+  <path d="M65 45 C75 45 85 55 85 65 C85 75 75 85 65 85" stroke="#fbbf24" stroke-width="4" fill="none"/>
+  
+  <!-- Arrow head -->
+  <path d="M75 70 L85 65 L75 60" stroke="#fbbf24" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> 

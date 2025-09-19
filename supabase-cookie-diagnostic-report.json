@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-21T23:36:46.832Z",
+  "environment": {
+    "nodeVersion": "v20.19.2",
+    "platform": "win32",
+    "supabaseUrl": "https://tqcxbiofslypocltpxmb.supabase.co",
+    "hasSupabaseKey": true
+  },
+  "recommendations": [
+    "Limpar todos os cookies do Supabase no navegador",
+    "Verificar se há cookies malformados com prefixo \"base64-\"",
+    "Implementar tratamento de erro robusto no middleware",
+    "Adicionar validação de formato de cookie antes do parsing",
+    "Considerar usar um cookie store mais robusto"
+  ],
+  "potentialSolutions": [
+    "Adicionar try-catch em volta de JSON.parse nos middlewares",
+    "Implementar limpeza automática de cookies malformados",
+    "Usar bibliotecas de parsing de cookie mais robustas",
+    "Adicionar logs detalhados para identificar origem dos cookies malformados"
+  ]
+}

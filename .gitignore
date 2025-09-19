@@ -1,0 +1,71 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+pnpm-lock.yaml
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+dist
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+.env.admin
+.env.client
+.env.test
+.env.production
+
+# turbo
+.turbo
+
+# IDE
+.idea
+.vscode
+
+# PagTracker specific
+# Certificados EfiPay (sensíveis)
+*.p12
+certificates/*.p12
+
+# Dados de teste e temporários
+temp.txt
+test-*.js
+*-test.js
+validation-report-*.json
+compliance-report-*.json
+
+# Configurações locais e backups
+.env.backup
+.local/
+.cursor/
+
+# Build artifacts
+tsconfig.tsbuildinfo
+dist/
+build/
+
+# Monorepo
+packages/*/node_modules/
+packages/*/dist/
+packages/*/.turbo/
+
+# Docker
+.dockerignore
+*.log
+node_modules

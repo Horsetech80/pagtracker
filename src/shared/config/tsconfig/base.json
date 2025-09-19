@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": false,
+    "declaration": true,
+    "sourceMap": true,
+    "composite": false,
+    "noEmit": false,
+    "paths": {
+      "@pagtracker/ui": ["../../packages/ui/src"],
+      "@pagtracker/ui/*": ["../../packages/ui/src/*"],
+      "@pagtracker/lib": ["../../packages/lib/src"],
+      "@pagtracker/lib/*": ["../../packages/lib/src/*"],
+      "@pagtracker/types": ["../../packages/types/src"],
+      "@pagtracker/types/*": ["../../packages/types/src/*"],
+      "@pagtracker/config": ["../../packages/config"],
+      "@pagtracker/config/*": ["../../packages/config/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".turbo"]
+} 

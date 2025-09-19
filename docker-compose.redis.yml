@@ -1,0 +1,86 @@
+# Docker Compose para Redis - PagTracker v4.0
+# Para desenvolvimento local e deploy VPS
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: pagtracker-redis
+    restart: unless-stopped
+    
+    # Configurações de produção
+    command: >
+      redis-server 
+      --maxmemory 256mb 
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --appendonly yes
+      --appendfsync everysec
+    
+    ports:
+      - "6379:6379"
+    
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/etc/redis/redis.conf
+    
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+    
+    # Security
+    security_opt:
+      - no-new-privileges:true
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    # Networks
+    networks:
+      - pagtracker-network
+
+  # Redis Commander (interface web para desenvolvimento)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: pagtracker-redis-commander
+    restart: unless-stopped
+    
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=admin
+      - HTTP_PASSWORD=pagtracker123
+    
+    ports:
+      - "8081:8081"
+    
+    depends_on:
+      - redis
+    
+    networks:
+      - pagtracker-network
+    
+    profiles:
+      - development
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  pagtracker-network:
+    driver: bridge

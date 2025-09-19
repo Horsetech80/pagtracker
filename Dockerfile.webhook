@@ -1,0 +1,43 @@
+FROM node:18-alpine AS base
+
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+# Copiar apenas arquivos necessários para webhooks
+COPY package.json pnpm-lock.yaml* ./
+COPY src/server/efipay-webhook-server.ts ./src/server/
+COPY src/lib ./src/lib
+COPY src/services ./src/services
+
+FROM base AS deps
+RUN pnpm install --frozen-lockfile --prod
+
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Build específico para webhook server
+RUN pnpm tsc src/server/efipay-webhook-server.ts --outDir dist
+
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 webhooks
+
+COPY --from=builder /app/dist ./dist
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+RUN mkdir -p /app/logs
+RUN chown -R webhooks:nodejs /app/logs
+
+EXPOSE 3001
+
+USER webhooks
+
+CMD ["node", "dist/efipay-webhook-server.js"] 

@@ -1,0 +1,342 @@
+# 🏗️ Cursor AI Development Rules - Production Level
+
+## 🎯 CORE PRINCIPLES
+
+### 1. NO WORKAROUNDS OR TEMPORARY SOLUTIONS
+- **NEVER** create simplified versions or temporary fixes
+- **ALWAYS** identify and fix the root cause of problems
+- **NEVER** bypass proper architecture patterns
+- **ALWAYS** maintain production-ready code quality
+
+### 2. ROOT CAUSE ANALYSIS MANDATORY
+- When errors occur, **ALWAYS** investigate the fundamental cause
+- **NEVER** mask symptoms with quick fixes
+- **ALWAYS** trace errors back to their source
+- **ALWAYS** fix dependencies and configurations properly
+
+### 3. PRODUCTION-READY STANDARDS
+- **ALWAYS** follow enterprise-level coding standards
+- **ALWAYS** implement proper error handling and logging
+- **ALWAYS** maintain type safety and TypeScript strictness
+- **ALWAYS** follow established architectural patterns
+
+---
+
+## 🏛️ ARCHITECTURAL REQUIREMENTS
+
+### Clean Architecture Compliance
+```typescript
+// ✅ CORRECT: Proper dependency injection
+class PaymentService {
+  constructor(
+    private paymentRepository: PaymentRepositoryInterface,
+    private paymentGateway: PaymentGatewayInterface
+  ) {}
+}
+
+// ❌ WRONG: Direct dependencies or workarounds
+const paymentService = new PaymentService(new EfiBankGateway());
+```
+
+### Strategy Pattern Implementation
+- **ALWAYS** use proper interfaces for gateway abstraction
+- **NEVER** hardcode gateway implementations
+- **ALWAYS** maintain gateway interchangeability
+- **ALWAYS** implement proper factory patterns
+
+### Error Handling Standards
+```typescript
+// ✅ CORRECT: Comprehensive error handling
+try {
+  const result = await paymentGateway.createPayment(request);
+  return { success: true, data: result };
+} catch (error) {
+  logger.error('Payment creation failed', { error, request });
+  throw new PaymentCreationError(error.message, error.code);
+}
+
+// ❌ WRONG: Generic error handling or silent failures
+try {
+  return await paymentGateway.createPayment(request);
+} catch {
+  return { success: false };
+}
+```
+
+---
+
+## 📦 DEPENDENCY MANAGEMENT
+
+### Package Resolution Rules
+- **ALWAYS** resolve package.json conflicts properly
+- **NEVER** ignore TypeScript compilation errors
+- **ALWAYS** maintain proper monorepo structure
+- **ALWAYS** fix workspace dependencies correctly
+
+### Import/Export Standards
+```typescript
+// ✅ CORRECT: Proper module exports
+export { PaymentGatewayInterface } from './interfaces';
+export { EfiBankGateway } from './gateways';
+export { PaymentManager } from './PaymentManager';
+
+// ❌ WRONG: Barrel exports without proper types
+export * from './gateways';
+```
+
+### TypeScript Configuration
+- **ALWAYS** maintain strict TypeScript settings
+- **NEVER** use `any` types without explicit justification
+- **ALWAYS** provide proper type definitions
+- **ALWAYS** resolve declaration file issues
+
+---
+
+## 🔧 DEBUGGING METHODOLOGY
+
+### Error Investigation Process
+1. **Identify Error Source**: Check exact error messages and stack traces
+2. **Analyze Dependencies**: Verify all imports and package versions
+3. **Check Configuration**: Validate tsconfig, package.json, and build settings
+4. **Fix Root Cause**: Address the fundamental issue, not symptoms
+5. **Verify Solution**: Ensure fix doesn't break other components
+
+### Component Integration Rules
+```typescript
+// ✅ CORRECT: Proper component integration
+import { Button } from '@pagtracker/ui';
+import { PaymentAPI } from '@pagtracker/lib';
+
+interface DashboardProps {
+  paymentAPI: PaymentAPI;
+}
+
+// ❌ WRONG: Direct DOM manipulation or simplified components
+const button = document.createElement('button');
+```
+
+---
+
+## 🎨 FRONTEND DEVELOPMENT
+
+### React/Next.js Standards
+- **ALWAYS** use proper React patterns (hooks, context, state management)
+- **NEVER** mix server and client components incorrectly
+- **ALWAYS** implement proper error boundaries
+- **ALWAYS** handle loading and error states properly
+
+### UI Component Integration
+- **ALWAYS** use the established design system (@pagtracker/ui)
+- **NEVER** create inline HTML/CSS replacements
+- **ALWAYS** fix component import issues properly
+- **ALWAYS** maintain component type safety
+
+### State Management
+```typescript
+// ✅ CORRECT: Proper state management
+const [state, setState] = useState<PaymentState>({
+  payments: [],
+  loading: false,
+  error: null
+});
+
+useEffect(() => {
+  const loadPayments = async () => {
+    setState(prev => ({ ...prev, loading: true }));
+    try {
+      const payments = await paymentAPI.listPayments();
+      setState(prev => ({ ...prev, payments, loading: false }));
+    } catch (error) {
+      setState(prev => ({ ...prev, error, loading: false }));
+    }
+  };
+  loadPayments();
+}, [paymentAPI]);
+```
+
+---
+
+## 🔐 SECURITY & PERFORMANCE
+
+### API Security
+- **ALWAYS** implement proper authentication
+- **ALWAYS** validate input parameters
+- **ALWAYS** use proper CORS configuration
+- **NEVER** expose sensitive data in responses
+
+### Performance Standards
+- **ALWAYS** implement proper caching strategies
+- **ALWAYS** use lazy loading where appropriate
+- **ALWAYS** optimize bundle sizes
+- **NEVER** block the main thread with heavy operations
+
+---
+
+## 🧪 TESTING REQUIREMENTS
+
+### Test Coverage
+- **ALWAYS** write unit tests for business logic
+- **ALWAYS** test error scenarios
+- **ALWAYS** test integration points
+- **NEVER** deploy without proper test coverage
+
+### API Testing
+```typescript
+// ✅ CORRECT: Comprehensive API testing
+describe('PaymentAPI', () => {
+  it('should create payment successfully', async () => {
+    const result = await paymentAPI.createPayment(mockRequest);
+    expect(result.success).toBe(true);
+    expect(result.data.payment.id).toBeDefined();
+  });
+
+  it('should handle gateway failures', async () => {
+    gatewayMock.mockRejectedValue(new Error('Gateway unavailable'));
+    await expect(paymentAPI.createPayment(mockRequest))
+      .rejects.toThrow('Payment creation failed');
+  });
+});
+```
+
+---
+
+## 📊 MONITORING & LOGGING
+
+### Logging Standards
+```typescript
+// ✅ CORRECT: Structured logging
+logger.info('Payment created', {
+  paymentId: payment.id,
+  gateway: payment.gateway.name,
+  amount: payment.amount,
+  tenantId: request.tenantId
+});
+
+logger.error('Gateway failure', {
+  gateway: 'efi-bank',
+  error: error.message,
+  requestId: request.id,
+  timestamp: new Date().toISOString()
+});
+```
+
+### Performance Monitoring
+- **ALWAYS** track API response times
+- **ALWAYS** monitor error rates
+- **ALWAYS** implement health checks
+- **ALWAYS** track business metrics
+
+---
+
+## 🚀 DEPLOYMENT STANDARDS
+
+### Environment Configuration
+- **ALWAYS** use proper environment variables
+- **NEVER** hardcode configuration values
+- **ALWAYS** validate environment on startup
+- **ALWAYS** implement graceful degradation
+
+### Docker & Infrastructure
+```dockerfile
+# ✅ CORRECT: Multi-stage production build
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+FROM node:18-alpine AS runtime
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+---
+
+## ⚡ PERFORMANCE BENCHMARKS
+
+### Response Time Targets
+- API endpoints: < 200ms p95
+- Page load time: < 2s
+- Database queries: < 100ms p95
+- Gateway integration: < 500ms p95
+
+### Code Quality Metrics
+- Test coverage: > 80%
+- TypeScript strict mode: 100%
+- ESLint violations: 0
+- Security vulnerabilities: 0
+
+---
+
+## 🔍 CODE REVIEW CHECKLIST
+
+Before any commit or deployment:
+- [ ] Root cause analysis completed for any issues
+- [ ] No workarounds or temporary solutions
+- [ ] All TypeScript errors resolved
+- [ ] Proper error handling implemented
+- [ ] Tests written and passing
+- [ ] Performance benchmarks met
+- [ ] Security review completed
+- [ ] Documentation updated
+
+---
+
+## ❌ FORBIDDEN PRACTICES
+
+### Never Do This:
+```typescript
+// ❌ Inline HTML instead of components
+return <div>...</div>;
+
+// ❌ Any types
+const data: any = response;
+
+// ❌ Silent error handling
+try { ... } catch { /* ignore */ }
+
+// ❌ Hardcoded values
+const API_URL = 'http://localhost:3000';
+
+// ❌ Direct DOM manipulation
+document.getElementById('button').onclick = ...;
+```
+
+### Always Do This:
+```typescript
+// ✅ Proper components
+return <Button variant="primary" onClick={handleClick}>Submit</Button>;
+
+// ✅ Strict typing
+const data: PaymentResponse = response;
+
+// ✅ Comprehensive error handling
+try { ... } catch (error) { 
+  logger.error('Operation failed', error);
+  throw new SpecificError(error.message);
+}
+
+// ✅ Environment configuration
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// ✅ React event handling
+const handleClick = useCallback(() => { ... }, []);
+```
+
+---
+
+## 🎯 SUMMARY
+
+**Production-level development means:**
+1. **No shortcuts or workarounds** - Fix root causes
+2. **Proper architecture** - Follow established patterns
+3. **Type safety** - Strict TypeScript everywhere
+4. **Error handling** - Comprehensive and structured
+5. **Testing** - Unit, integration, and e2e coverage
+6. **Performance** - Meet production benchmarks
+7. **Security** - Secure by design
+8. **Monitoring** - Observable and debuggable
+
+**Remember: If it's not production-ready, it's not ready.** 

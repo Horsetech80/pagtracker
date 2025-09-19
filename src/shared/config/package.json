@@ -1,0 +1,18 @@
+{
+  "name": "@pagtracker/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "eslint-config",
+    "tsconfig",
+    "postcss.config.js",
+    "tailwind.config.js"
+  ],
+  "dependencies": {
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  }
+} 

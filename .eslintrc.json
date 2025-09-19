@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "next/core-web-vitals"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-const": "warn",
+    "no-var": "error",
+    "no-console": "off",
+    "eqeqeq": "warn",
+    "curly": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
+  "ignorePatterns": [
+    ".next",
+    "node_modules",
+    "dist",
+    "build",
+    "*.config.js",
+    "scripts/*.js"
+  ],
+  "overrides": [
+    {
+      "files": ["src/types/global.d.ts"],
+      "rules": {
+        "no-var": "off"
+      }
+    }
+  ]
+} 

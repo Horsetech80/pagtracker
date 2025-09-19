@@ -1,0 +1,512 @@
+/* Utilitários de Responsividade - PagTracker v4.0 */
+
+/* Container responsivo padrão */
+.container-responsive {
+  max-width: 2560px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-responsive {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container-responsive {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* Container compacto para componentes menores */
+.container-compact {
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-compact {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-compact {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Container largo para dashboards */
+.container-wide {
+  max-width: 3840px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-wide {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-wide {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-wide {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container-wide {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container-wide {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container-wide {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+/* Texto responsivo */
+.text-responsive-xs {
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-xs {
+    font-size: 0.875rem;
+  }
+}
+
+.text-responsive-sm {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-sm {
+    font-size: 1rem;
+  }
+}
+
+.text-responsive-base {
+  font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-base {
+    font-size: 1.125rem;
+  }
+}
+
+.text-responsive-lg {
+  font-size: 1.125rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-lg {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-lg {
+    font-size: 1.5rem;
+  }
+}
+
+.text-responsive-xl {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-xl {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-xl {
+    font-size: 1.875rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-responsive-xl {
+    font-size: 2.25rem;
+  }
+}
+
+/* Espaçamento responsivo */
+.spacing-responsive-sm {
+  padding: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .spacing-responsive-sm {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spacing-responsive-sm {
+    padding: 1rem;
+  }
+}
+
+.spacing-responsive-md {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .spacing-responsive-md {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spacing-responsive-md {
+    padding: 2rem;
+  }
+}
+
+.spacing-responsive-lg {
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .spacing-responsive-lg {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spacing-responsive-lg {
+    padding: 3rem;
+  }
+}
+
+/* Grid responsivo */
+.grid-responsive-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-responsive-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.grid-responsive-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-responsive-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive-dashboard {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-responsive-dashboard {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Flex responsivo */
+.flex-responsive-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .flex-responsive-stack {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+.flex-responsive-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .flex-responsive-center {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+/* Altura responsiva */
+.h-responsive-screen {
+  height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  .h-responsive-screen {
+    height: calc(100vh - 4rem);
+  }
+}
+
+.h-responsive-header {
+  height: 3rem;
+}
+
+@media (min-width: 640px) {
+  .h-responsive-header {
+    height: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .h-responsive-header {
+    height: 5rem;
+  }
+}
+
+/* Largura responsiva */
+.w-responsive-full {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .w-responsive-full {
+    width: calc(100% - 16rem);
+  }
+}
+
+.w-responsive-sidebar {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .w-responsive-sidebar {
+    width: 16rem;
+  }
+}
+
+/* Utilitários de visibilidade */
+.show-mobile-only {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .show-mobile-only {
+    display: none;
+  }
+}
+
+.show-tablet-up {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .show-tablet-up {
+    display: block;
+  }
+}
+
+.show-desktop-only {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .show-desktop-only {
+    display: block;
+  }
+}
+
+.show-large-screen {
+  display: none;
+}
+
+@media (min-width: 1536px) {
+  .show-large-screen {
+    display: block;
+  }
+}
+
+.show-ultra-wide {
+  display: none;
+}
+
+@media (min-width: 2560px) {
+  .show-ultra-wide {
+    display: block;
+  }
+}
+
+/* Bordas responsivas */
+.border-responsive {
+  border-width: 1px;
+}
+
+@media (min-width: 1024px) {
+  .border-responsive {
+    border-width: 2px;
+  }
+}
+
+/* Arredondamento responsivo */
+.rounded-responsive {
+  border-radius: 0.375rem;
+}
+
+@media (min-width: 1024px) {
+  .rounded-responsive {
+    border-radius: 0.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .rounded-responsive {
+    border-radius: 0.75rem;
+  }
+}
+
+/* Sombras responsivas */
+.shadow-responsive {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+@media (min-width: 1024px) {
+  .shadow-responsive {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+}
+
+@media (min-width: 1536px) {
+  .shadow-responsive {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+}
+
+/* Botões responsivos */
+.btn-responsive {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .btn-responsive {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-responsive {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+  }
+}
+
+/* Media queries customizadas para resoluções específicas */
+
+/* 2K/QHD (2560x1440) */
+@media (min-width: 2560px) {
+  .container-2k {
+    max-width: 2400px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  
+  .text-2k-adjust {
+    font-size: 1.1em;
+  }
+  
+  .spacing-2k-adjust {
+    padding: 1.25em;
+  }
+}
+
+/* 4K/UHD (3840x2160) */
+@media (min-width: 3840px) {
+  .container-4k {
+    max-width: 3600px;
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+  
+  .text-4k-adjust {
+    font-size: 1.2em;
+  }
+  
+  .spacing-4k-adjust {
+    padding: 1.5em;
+  }
+}
