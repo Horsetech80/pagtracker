@@ -1,71 +1,60 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-node_modules
-.pnp
+# Dependencies
+/node_modules
+/.pnp
 .pnp.js
-pnpm-lock.yaml
 
-# testing
-coverage
+# Testing
+/coverage
 
-# next.js
-.next/
-out/
-build
-dist
+# Next.js
+/.next/
+/.next-admin/
+/out/
 
-# misc
+# Production
+/build
+
+# Misc
 .DS_Store
+*.pem
 
-# debug
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
+# Local env files
 .env*.local
-.env
 .env.admin
 .env.client
 .env.test
 .env.production
 
-# turbo
-.turbo
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
 
 # IDE
-.idea
-.vscode
+.vscode/
+.idea/
 
-# PagTracker specific
-# Certificados EfiPay (sensíveis)
-*.p12
-certificates/*.p12
+# Certificados EfiPay sensíveis
+certificado_homologacao.pem
+certificado.pem
+certificates/efipay-homolog.crt
+certificates/efipay-prod.crt
+certificates/homologacao-full.pem
+certificates/producao-745954-Certificado.pem
+certificates/producao-cert-only.pem
 
-# Dados de teste e temporários
-temp.txt
-test-*.js
-*-test.js
-validation-report-*.json
-compliance-report-*.json
+# Dados de teste/temporários
+temp_*
+*.tmp
+*.temp
 
-# Configurações locais e backups
-.env.backup
-.local/
-.cursor/
-
-# Build artifacts
-tsconfig.tsbuildinfo
-dist/
-build/
-
-# Monorepo
-packages/*/node_modules/
-packages/*/dist/
-packages/*/.turbo/
-
-# Docker
-.dockerignore
-*.log
-node_modules
+# Backups de variáveis de ambiente
+*.env.bkp
+*.env.backup
