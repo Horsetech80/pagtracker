@@ -77,6 +77,28 @@ const nextConfig = {
       },
     ];
   },
+
+  // Configuração do webpack para garantir path mapping
+  webpack: (config, { isServer }) => {
+    // Configurações para certificados no Vercel
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+
+    // Garantir que o path mapping funcione corretamente
+    const path = require('path');
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.join(__dirname, 'src'),
+    };
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
