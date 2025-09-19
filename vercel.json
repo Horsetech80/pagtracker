@@ -4,7 +4,7 @@
   "alias": ["pagtracker-homolog.vercel.app"],
   "regions": ["gru1"],
   "framework": "nextjs",
-  "buildCommand": "npm run build",
+  "buildCommand": "NEXT_CONFIG_FILE=next.config.vercel.js npm run build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "devCommand": "npm run dev",
