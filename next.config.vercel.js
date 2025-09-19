@@ -119,9 +119,11 @@ const nextConfig = {
     }
 
     // Garantir que o path mapping funcione corretamente no Vercel
+    // Usar path.join para melhor compatibilidade com diferentes ambientes
+    const path = require('path');
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, 'src'),
+      '@': path.join(__dirname, 'src'),
     };
 
     return config;
